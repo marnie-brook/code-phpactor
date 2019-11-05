@@ -2,7 +2,7 @@
 	"name": "phpactor",
 	"displayName": "phpactor",
 	"description": "",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -34,22 +34,22 @@
 				"command": "extension.phpactorImportClass",
 				"title": "PhpActor: Import Class",
 				"enablement": "editorLangId == php"
-            },
-            {
-                "command": "extension.phpactorContextMenu",
-                "title": "PhpActor: Context Menu",
-                "enablement": "editorLangId == php"
-            },
-            {
-                "command": "extension.phpactorTransformFile",
-                "title": "PhpActor: Transform File",
-                "enablement": "editorLangId == php"
-            },
-            {
-                "command": "extension.phpactorClassInflect",
-                "title": "PhpActor: Class Inflect",
-                "enablement": "editorLangId == php"
-            }
+			},
+			{
+				"command": "extension.phpactorContextMenu",
+				"title": "PhpActor: Context Menu",
+				"enablement": "editorLangId == php"
+			},
+			{
+				"command": "extension.phpactorTransformFile",
+				"title": "PhpActor: Transform File",
+				"enablement": "editorLangId == php"
+			},
+			{
+				"command": "extension.phpactorClassInflect",
+				"title": "PhpActor: Class Inflect",
+				"enablement": "editorLangId == php"
+			}
 		],
 		"configuration": {
 			"title": "phpactor",
