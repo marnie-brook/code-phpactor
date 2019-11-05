@@ -25,7 +25,7 @@ function testForPhpActor(path: string): Promise<string> {
   });
 }
 
-function rpcPhpActor(path: string, workingDir: string, command: { action: string, parameters: any}): Promise<any> {
+export function rpcPhpActor(path: string, workingDir: string, command: { action: string, parameters: any}): Promise<any> {
   if (command.action === 'return') {
     return command.parameters.value;
   }
@@ -73,6 +73,17 @@ export function goToDefinition(path: string, workingDir: string, source: string,
 export function copyClass(path: string, workingDir: string, sourcePath: string, targetPath: string) {
     const command = {
         action: 'copy_class',
+        parameters: {
+            source_path: sourcePath,
+            dest_path: targetPath
+        }
+    };
+    return rpcPhpActor(path, workingDir, command);
+}
+
+export function moveClass(path: string, workingDir: string, sourcePath: string, targetPath: string) {
+    const command = {
+        action: 'move_class',
         parameters: {
             source_path: sourcePath,
             dest_path: targetPath

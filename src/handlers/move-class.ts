@@ -1,5 +1,5 @@
 import { commands, Disposable, window, workspace } from "vscode";
-import { copyClass } from "../phpactor/phpactor";
+import { moveClass } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
 async function handle() {
@@ -27,7 +27,7 @@ async function handle() {
     if (newPath === undefined || newPath === editor.document.fileName) {
         return;
     }
-    const resp = await copyClass(
+    const resp = await moveClass(
         phpactorPath,
         workingDir.uri.fsPath,
         editor.document.fileName,
@@ -37,7 +37,7 @@ async function handle() {
 }
 
 export function register(): Disposable {
-    return commands.registerCommand("extension.phpactorCopyClass", () => {
+    return commands.registerCommand("extension.phpactorMoveClass", () => {
         handle();
     });
 }

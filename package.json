@@ -19,6 +19,11 @@
 				"command": "extension.phpactorCopyClass",
                 "title": "PhpActor: Copy Class",
                 "enablement": "editorLangId == php"
+			},
+			{
+				"command": "extension.phpactorMoveClass",
+				"title": "PhpActor: Move Class",
+                "enablement": "editorLangId == php"
 			}
         ],
         "configuration": {

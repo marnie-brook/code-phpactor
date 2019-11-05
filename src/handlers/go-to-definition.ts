@@ -37,7 +37,7 @@ async function handle(filePath: string, position: Position) {
 
 export function register(): Disposable {
     return languages.registerDefinitionProvider("php", {
-        provideDefinition: (document, position, cancel): ProviderResult<Definition> => {
+        provideDefinition: (document, position): ProviderResult<Definition> => {
             return handle(document.fileName, position);
         }
     });
