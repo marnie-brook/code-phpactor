@@ -37,6 +37,12 @@ async function provideCompletionItems(document: TextDocument, position: Position
         const ci = new CompletionItem(suggestion.label);
         ci.kind = mapTypeToCompletionItemKind(suggestion.type);
         ci.detail = suggestion.short_description;
+        if (ci.kind === CompletionItemKind.Class) {
+            ci.command = {
+                command: "extension.phpactorImportClass",
+                title: "PhpActor: Import Class"
+            };
+        }
         return ci;
     });
 }
@@ -70,6 +76,7 @@ export function register(): Disposable {
             return provideCompletionItems(document, position, token, context);
         },
         resolveCompletionItem: (item) => {
+            console.log(item);
             return undefined;
         }
     }, ':', '>', '$');
