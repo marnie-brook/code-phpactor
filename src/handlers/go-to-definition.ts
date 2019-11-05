@@ -1,5 +1,5 @@
 import { Disposable, languages, window, workspace, Position, Uri, ProviderResult, Definition, Location } from 'vscode';
-import { goToDefinition, Response } from './../phpactor/phpactor';
+import { goToDefinition } from './../phpactor/phpactor';
 
 async function handle(filePath: string, position: Position) {
     const editor = window.activeTextEditor;

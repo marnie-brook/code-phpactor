@@ -1,4 +1,4 @@
-import { Disposable, languages, TextDocument, Range, CodeLens, Position, workspace, Location, Uri } from "vscode";
+import { Disposable, languages, TextDocument, Range, Position, workspace, Location, Uri } from "vscode";
 import { findReferences } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 

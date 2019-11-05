@@ -1,6 +1,5 @@
-import { Response, rpcPhpActor } from "./phpactor";
-import { workspace, window, Selection, ParameterInformation, commands, Range, Position, TextEditorCursorStyle } from "vscode";
-import { stringify } from "querystring";
+import { rpcPhpActor } from "./phpactor";
+import { workspace, window, Selection, Range, Position } from "vscode";
 
 async function openFile({ path, offset }: { path: string, offset: number}) {
     await workspace.openTextDocument(path).then((td) => {
@@ -90,10 +89,6 @@ async function inputCallback(inputParams: any) {
     );
 }
 
-function closeFile({ path }: { path: string }) {
-    //
-}
-
 async function replaceFileSource(parameters: any) {
     if ("path" in parameters) {
         await openFile({ path: parameters.path, offset: 0 });
@@ -119,26 +114,18 @@ async function updateFileSource(parameters: any) {
     }
 }
 
-async function fileReferences(parameters: any) {
-    //
-}
-
 export async function handleResponse(action: string, parameters: any) {
-    console.log(action);
-    console.log(parameters);
     switch (action) {
         case "open_file":
             return await openFile(parameters);
         case "input_callback":
             return await inputCallback(parameters);
         case "collection":
-            console.log(parameters.actions);
             parameters.actions.forEach(async (item: any) => {
-                console.log("x", item);
                 await handleResponse(item.name, item.parameters);
             });
         case "close_file":
-            return closeFile(parameters);
+            return;
         case "replace_file_source":
             return await replaceFileSource(parameters);
         case "update_file_source":
@@ -147,9 +134,7 @@ export async function handleResponse(action: string, parameters: any) {
             return window.showInformationMessage(parameters.message);
         case "return":
             return parameters.value;
-        case "file_references":
-            return await fileReferences(parameters);
         default:
-            console.error(`${action} handler not implemented yet`);
+            throw new Error(`${action} handler not implemented yet`);
     }
 }

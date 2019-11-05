@@ -1,6 +1,4 @@
-const { promisify } = require('util');
 const { spawn } = require('child_process');
-const { Readable } = require('stream');
 
 function testForPhpActor(path: string): Promise<string> {
   return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 import { Disposable, commands, window, workspace } from "vscode";
-import { newClass, importClass } from "../phpactor/phpactor";
+import { importClass } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
 async function handle() {

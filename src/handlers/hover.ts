@@ -1,4 +1,4 @@
-import { Disposable, languages, window, workspace, Position, TextDocument, Hover } from "vscode";
+import { Disposable, languages, workspace, Position, TextDocument, Hover } from "vscode";
 import { hover } from "../phpactor/phpactor";
 
 async function handle(document: TextDocument, position: Position) {
@@ -28,7 +28,7 @@ async function handle(document: TextDocument, position: Position) {
 
 export function register(): Disposable {
     return languages.registerHoverProvider("php", {
-        provideHover: (document, position, token) => {
+        provideHover: (document, position) => {
             return handle(document, position);
         }
     });

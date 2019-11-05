@@ -1,8 +1,8 @@
-import { Disposable, languages, workspace, TextDocument, Position, CancellationToken, CompletionItem, CompletionItemKind, CompletionContext } from "vscode";
+import { Disposable, languages, workspace, TextDocument, Position, CompletionItem, CompletionItemKind } from "vscode";
 import { complete } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
-async function provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext) {
+async function provideCompletionItems(document: TextDocument, position: Position) {
     const phpactorPath = workspace.getConfiguration("phpactor").get("phpactorExecutablePath");
     if (typeof phpactorPath !== "string") {
         return;
@@ -72,11 +72,10 @@ function mapTypeToCompletionItemKind(type: string): CompletionItemKind | undefin
 
 export function register(): Disposable {
     return languages.registerCompletionItemProvider("php", {
-        provideCompletionItems: (document, position, token, context) => {
-            return provideCompletionItems(document, position, token, context);
+        provideCompletionItems: (document, position) => {
+            return provideCompletionItems(document, position);
         },
         resolveCompletionItem: (item) => {
-            console.log(item);
             return undefined;
         }
     }, ':', '>', '$');
