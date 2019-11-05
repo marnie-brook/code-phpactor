@@ -10,6 +10,11 @@ import * as Complete from './handlers/complete';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
+    // TODO; Hover
+    // TODO; Context Menu
+    // TODO; Transform
+    // TODO; Class Inflect
+    // TODO: Find References
     return [
         GotoDefinition.register(),
         CopyClass.register(),
