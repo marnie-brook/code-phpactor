@@ -2,7 +2,7 @@
 	"name": "phpactor",
 	"displayName": "phpactor",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.1.1",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -10,42 +10,42 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onLanguage:php"
+		"onLanguage:php"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-            {
+			{
 				"command": "extension.phpactorCopyClass",
-                "title": "PhpActor: Copy Class",
-                "enablement": "editorLangId == php"
+				"title": "PhpActor: Copy Class",
+				"enablement": "editorLangId == php"
 			},
 			{
 				"command": "extension.phpactorMoveClass",
 				"title": "PhpActor: Move Class",
-                "enablement": "editorLangId == php"
+				"enablement": "editorLangId == php"
 			},
 			{
 				"command": "extension.phpactorNewClass",
 				"title": "PhpActor: New Class",
-                "enablement": "editorLangId == php"
+				"enablement": "editorLangId == php"
 			},
 			{
 				"command": "extension.phpactorImportClass",
 				"title": "PhpActor: Import Class",
-                "enablement": "editorLangId == php"
+				"enablement": "editorLangId == php"
 			}
-        ],
-        "configuration": {
-            "title": "phpactor",
-            "properties": {
-                "phpactor.phpactorExecutablePath": {
-                    "type": "string",
-                    "default": null,
-                    "description": "Path to the phpactor executable on your file system"
-                }
-            }
-        }
+		],
+		"configuration": {
+			"title": "phpactor",
+			"properties": {
+				"phpactor.phpactorExecutablePath": {
+					"type": "string",
+					"default": null,
+					"description": "Path to the phpactor executable on your file system"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -64,6 +64,6 @@
 		"typescript": "^3.6.4",
 		"tslint": "^5.20.0",
 		"vscode-test": "^1.2.2"
-    },
-    "publisher": "williambrook"
+	},
+	"publisher": "williambrook"
 }
