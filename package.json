@@ -39,6 +39,11 @@
                 "command": "extension.phpactorContextMenu",
                 "title": "PhpActor: Context Menu",
                 "enablement": "editorLangId == php"
+            },
+            {
+                "command": "extension.phpactorTransformFile",
+                "title": "PhpActor: Transform File",
+                "enablement": "editorLangId == php"
             }
 		],
 		"configuration": {

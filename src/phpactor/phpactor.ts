@@ -161,3 +161,14 @@ export function findReferences(phpactorPath: string, workingDir: string, source:
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function transformFile(phpactorPath: string, workingDir: string, source: string, path: string) {
+    const command = {
+        action: 'transform',
+        parameters: {
+            source,
+            path
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}
