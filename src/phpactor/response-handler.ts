@@ -27,9 +27,6 @@ async function handleInput(input: Input) {
     }
     if (input.type === "choice") {
         const choices = Object.keys(input.parameters.choices);
-        if (choices.length === 1) {
-            return choices[0];
-        }
         const choice = await window.showQuickPick(choices);
         return choice;
     }

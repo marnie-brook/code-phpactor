@@ -44,6 +44,11 @@
                 "command": "extension.phpactorTransformFile",
                 "title": "PhpActor: Transform File",
                 "enablement": "editorLangId == php"
+            },
+            {
+                "command": "extension.phpactorClassInflect",
+                "title": "PhpActor: Class Inflect",
+                "enablement": "editorLangId == php"
             }
 		],
 		"configuration": {

@@ -11,10 +11,10 @@ import * as Hover from './handlers/hover';
 import * as ContextMenu from './handlers/context-menu';
 import * as FindReferences from './handlers/find-references';
 import * as Transform from './handlers/transform';
+import * as ClassInflect from './handlers/class-inflect';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
-    // TODO; Class Inflect
     return [
         GotoDefinition.register(),
         CopyClass.register(),
@@ -25,7 +25,8 @@ function createHandlers(): Array<vscode.Disposable> {
         Hover.register(),
         ContextMenu.register(),
         FindReferences.register(),
-        Transform.register()
+        Transform.register(),
+        ClassInflect.register()
     ];
 }
 

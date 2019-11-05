@@ -172,3 +172,13 @@ export function transformFile(phpactorPath: string, workingDir: string, source: 
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function classInflect(phpactorPath: string, workingDir: string, path: string) {
+    const command = {
+        action: 'class_inflect',
+        parameters: {
+            path
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}
