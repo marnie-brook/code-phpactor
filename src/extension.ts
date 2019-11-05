@@ -6,6 +6,7 @@ import * as CopyClass from './handlers/copy-class';
 import * as MoveClass from './handlers/move-class';
 import * as NewClass from './handlers/new-class';
 import * as ImportClass from './handlers/import-class';
+import * as Complete from './handlers/complete';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -14,7 +15,8 @@ function createHandlers(): Array<vscode.Disposable> {
         CopyClass.register(),
         MoveClass.register(),
         NewClass.register(),
-        ImportClass.register()
+        ImportClass.register(),
+        Complete.register()
     ];
 }
 

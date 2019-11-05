@@ -115,3 +115,14 @@ export function importClass(phpactorPath: string, workingDir: string, source: st
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function complete(phpactorPath: string, workingDir: string, source: string, offset: number) {
+    const command = {
+        action: 'complete',
+        parameters: {
+            source,
+            offset
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}

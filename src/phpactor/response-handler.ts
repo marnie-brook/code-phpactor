@@ -126,6 +126,10 @@ export async function handleResponse(action: string, parameters: any) {
             return await replaceFileSource(parameters);
         case "update_file_source":
             return await updateFileSource(parameters);
+        case "echo":
+            return window.showInformationMessage(parameters.message);
+        case "return":
+            return parameters.value;
         default:
             console.error(`${action} handler not implemented yet`);
     }
