@@ -126,3 +126,14 @@ export function complete(phpactorPath: string, workingDir: string, source: strin
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function hover(phpactorPath: string, workingDir: string, source: string, offset: number) {
+    const command = {
+        action: 'hover',
+        parameters: {
+            source,
+            offset
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}

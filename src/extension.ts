@@ -7,10 +7,10 @@ import * as MoveClass from './handlers/move-class';
 import * as NewClass from './handlers/new-class';
 import * as ImportClass from './handlers/import-class';
 import * as Complete from './handlers/complete';
+import * as Hover from './handlers/hover';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
-    // TODO; Hover
     // TODO; Context Menu
     // TODO; Transform
     // TODO; Class Inflect
@@ -21,7 +21,8 @@ function createHandlers(): Array<vscode.Disposable> {
         MoveClass.register(),
         NewClass.register(),
         ImportClass.register(),
-        Complete.register()
+        Complete.register(),
+        Hover.register()
     ];
 }
 
