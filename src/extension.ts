@@ -4,13 +4,15 @@ import * as vscode from 'vscode';
 import * as GotoDefinition from './handlers/go-to-definition';
 import * as CopyClass from './handlers/copy-class';
 import * as MoveClass from './handlers/move-class';
+import * as NewClass from './handlers/new-class';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
     return [
         GotoDefinition.register(),
         CopyClass.register(),
-        MoveClass.register()
+        MoveClass.register(),
+        NewClass.register()
     ];
 }
 

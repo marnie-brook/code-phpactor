@@ -24,6 +24,11 @@
 				"command": "extension.phpactorMoveClass",
 				"title": "PhpActor: Move Class",
                 "enablement": "editorLangId == php"
+			},
+			{
+				"command": "extension.phpactorNewClass",
+				"title": "PhpActor: New Class",
+                "enablement": "editorLangId == php"
 			}
         ],
         "configuration": {

@@ -1,5 +1,5 @@
 import { Response, rpcPhpActor } from "./phpactor";
-import { workspace, window, Selection, ParameterInformation, commands } from "vscode";
+import { workspace, window, Selection, ParameterInformation, commands, Range, Position } from "vscode";
 import { stringify } from "querystring";
 
 async function openFile({ path, offset }: { path: string, offset: number}) {
@@ -21,6 +21,14 @@ async function handleInput(input: Input) {
             prompt: input.parameters.label ? input.parameters.label + "Y/N" : ""
         }).then((c) => c !== undefined && c.toLowerCase() === "y");
         return confirmed;
+    }
+    if (input.type === "choice") {
+        const choices = Object.keys(input.parameters.choices);
+        if (choices.length === 1) {
+            return choices[0];
+        }
+        const choice = await window.showQuickPick(choices);
+        return choice;
     }
 }
 
@@ -75,7 +83,24 @@ function closeFile({ path }: { path: string }) {
     //
 }
 
+async function replaceFileSource(parameters: any) {
+    if ("path" in parameters) {
+        await openFile({ path: parameters.path, offset: 0 });
+    }
+    const editor = window.activeTextEditor;
+    if (editor === undefined) {
+        return;
+    }
+    await editor.edit((e) => {
+        e.replace(
+            new Range(new Position(0,0), editor.document.positionAt(editor.document.getText().length)),
+            parameters.source
+        );
+    });
+}
+
 export async function handleResponse(action: string, parameters: any) {
+    console.log(action);
     console.log(parameters);
     switch (action) {
         case "open_file":
@@ -88,6 +113,8 @@ export async function handleResponse(action: string, parameters: any) {
             }
         case "close_file":
             return closeFile(parameters);
+        case "replace_file_source":
+            return await replaceFileSource(parameters);
         default:
             console.error(`${action} handler not implemented yet`);
     }

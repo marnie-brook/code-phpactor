@@ -91,3 +91,14 @@ export function moveClass(path: string, workingDir: string, sourcePath: string, 
     };
     return rpcPhpActor(path, workingDir, command);
 }
+
+export function newClass(path: string, workingDir: string, currentPath: string, targetPath: string) {
+    const command = {
+        action: 'class_new',
+        parameters: {
+            current_path: currentPath,
+            new_path: targetPath
+        }
+    };
+    return rpcPhpActor(path, workingDir, command);
+}
