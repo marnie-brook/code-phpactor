@@ -149,3 +149,15 @@ export function contextMenu(phpactorPath: string, workingDir: string, source: st
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function findReferences(phpactorPath: string, workingDir: string, source: string, offset: number, currentPath: string) {
+    const command = {
+        action: 'references',
+        parameters: {
+            source,
+            offset,
+            path: currentPath
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}
