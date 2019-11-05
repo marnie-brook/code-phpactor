@@ -22,7 +22,7 @@ async function handle(filePath: string, position: Position) {
     const offset = editor.document.offsetAt(position);
     const resp = await goToDefinition(
         phpactorPath,
-        workingDir.uri.toString(),
+        workingDir.uri.fsPath,
         source,
         offset,
         filePath

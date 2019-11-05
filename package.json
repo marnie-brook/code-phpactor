@@ -14,6 +14,13 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+            {
+				"command": "extension.phpactorCopyClass",
+                "title": "PhpActor: Copy Class",
+                "enablement": "editorLangId == php"
+			}
+        ],
         "configuration": {
             "title": "phpactor",
             "properties": {
@@ -23,12 +30,7 @@
                     "description": "Path to the phpactor executable on your file system"
                 }
             }
-        },
-        "languages": [
-            {
-                "id": "php"
-            }
-        ]
+        }
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

@@ -1,9 +1,15 @@
 import { Response } from "./phpactor";
-import { workspace } from "vscode";
+import { workspace, window, Selection } from "vscode";
 
 function openFile({ path, offset }: { path: string, offset: number}) {
     workspace.openTextDocument(path).then((td) => {
-        const position = td.positionAt(offset);
+
+        return window.showTextDocument(td);
+    }).then((te) => {
+        const pos = te.document.positionAt(offset);
+        te.selections = [
+            new Selection(pos, pos)
+        ];
     });
 }
 

@@ -49,6 +49,11 @@ function rpcPhpActor(path: string, workingDir: string, command: { action: string
   });
 }
 
+export interface Response {
+    action: "return" | "return_choice" | "echo" | "error" | "collection" | "open_file" | "close_file" | "file_references" | "input_callback" | "information" | "replace_file_source";
+    parameters: any;
+}
+
 export function validatePath(path: string) {
     return testForPhpActor(path);
 }
@@ -64,7 +69,14 @@ export function goToDefinition(path: string, workingDir: string, source: string,
     };
     return rpcPhpActor(path, workingDir, command);
 }
-export interface Response {
-    action: "return" | "return_choice" | "echo" | "error" | "collection" | "open_file" | "close_file" | "file_references" | "input_callback" | "information" | "replace_file_source";
-    parameters: any;
+
+export function copyClass(path: string, workingDir: string, sourcePath: string, targetPath: string) {
+    const command = {
+        action: 'copy_class',
+        parameters: {
+            source_path: sourcePath,
+            dest_path: targetPath
+        }
+    };
+    return rpcPhpActor(path, workingDir, command);
 }

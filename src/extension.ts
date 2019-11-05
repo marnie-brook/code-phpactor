@@ -2,11 +2,13 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as GotoDefinition from './handlers/go-to-definition';
+import * as CopyClass from './handlers/copy-class';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
     return [
         GotoDefinition.register(),
+        CopyClass.register()
     ];
 }
 
