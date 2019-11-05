@@ -5,9 +5,14 @@ Code phpactor is a plugin to serve as a communication medium between VSCode and 
 Currently not all functionality is supported, however it will be added as and when I am available to do so with the intention of completely supporting the api.
 
 Current features:
-    - Jump to Definition
-    - Autocomplete/intellisense
-    - Copy class
-    - Move class
-    - New Class
-    - Import Class
+
+- Jump to Definition
+- Autocomplete/intellisense
+- Copy class
+- Move class
+- New Class
+- Import Class
+- Class Transforming
+- Class Inflection
+- Finding References
+- Hover
