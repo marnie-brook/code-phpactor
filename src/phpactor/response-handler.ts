@@ -1,5 +1,5 @@
 import { Response, rpcPhpActor } from "./phpactor";
-import { workspace, window, Selection, ParameterInformation, commands, Range, Position } from "vscode";
+import { workspace, window, Selection, ParameterInformation, commands, Range, Position, TextEditorCursorStyle } from "vscode";
 import { stringify } from "querystring";
 
 async function openFile({ path, offset }: { path: string, offset: number}) {
@@ -99,6 +99,15 @@ async function replaceFileSource(parameters: any) {
     });
 }
 
+async function updateFileSource(parameters: any) {
+    if ("path" in parameters) {
+        await openFile({ path: parameters.path, offset: 0 });
+    }
+    if (parameters.source) {
+        return await replaceFileSource(parameters);
+    }
+}
+
 export async function handleResponse(action: string, parameters: any) {
     console.log(action);
     console.log(parameters);
@@ -115,6 +124,8 @@ export async function handleResponse(action: string, parameters: any) {
             return closeFile(parameters);
         case "replace_file_source":
             return await replaceFileSource(parameters);
+        case "update_file_source":
+            return await updateFileSource(parameters);
         default:
             console.error(`${action} handler not implemented yet`);
     }

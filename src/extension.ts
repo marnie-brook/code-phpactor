@@ -5,6 +5,7 @@ import * as GotoDefinition from './handlers/go-to-definition';
 import * as CopyClass from './handlers/copy-class';
 import * as MoveClass from './handlers/move-class';
 import * as NewClass from './handlers/new-class';
+import * as ImportClass from './handlers/import-class';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -12,7 +13,8 @@ function createHandlers(): Array<vscode.Disposable> {
         GotoDefinition.register(),
         CopyClass.register(),
         MoveClass.register(),
-        NewClass.register()
+        NewClass.register(),
+        ImportClass.register()
     ];
 }
 

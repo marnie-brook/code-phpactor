@@ -29,6 +29,11 @@
 				"command": "extension.phpactorNewClass",
 				"title": "PhpActor: New Class",
                 "enablement": "editorLangId == php"
+			},
+			{
+				"command": "extension.phpactorImportClass",
+				"title": "PhpActor: Import Class",
+                "enablement": "editorLangId == php"
 			}
         ],
         "configuration": {

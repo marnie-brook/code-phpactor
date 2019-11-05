@@ -102,3 +102,16 @@ export function newClass(path: string, workingDir: string, currentPath: string, 
     };
     return rpcPhpActor(path, workingDir, command);
 }
+
+export function importClass(phpactorPath: string, workingDir: string, source: string, offset: number, name: string, path: string) {
+    const command = {
+        action: 'import_class',
+        parameters: {
+            source,
+            offset,
+            name,
+            path
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}
