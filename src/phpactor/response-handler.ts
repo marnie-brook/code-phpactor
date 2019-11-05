@@ -19,7 +19,10 @@ async function handleInput(input: Input) {
         const confirmed = await window.showInputBox({
             placeHolder: input.parameters.label ? input.parameters.label + "Y/N" : "",
             prompt: input.parameters.label ? input.parameters.label + "Y/N" : ""
-        }).then((c) => c !== undefined && c.toLowerCase() === "y");
+        });
+        if (typeof confirmed === "string") {
+            return confirmed.toLowerCase() === "y";
+        }
         return confirmed;
     }
     if (input.type === "choice") {
@@ -30,6 +33,14 @@ async function handleInput(input: Input) {
         const choice = await window.showQuickPick(choices);
         return choice;
     }
+    if (input.type === "text") {
+        const text = await window.showInputBox({
+            placeHolder: input.parameters.label,
+            value: input.parameters.default
+        });
+        return text;
+    }
+    throw new Error(`Uknown input type: ${input.type}`);
 }
 
 interface Input {
@@ -50,6 +61,9 @@ async function inputCallback(inputParams: any) {
     for (const key in callback.parameters) {
         if (callback.parameters[key] instanceof Promise) {
             callback.parameters[key] = await callback.parameters[key];
+            if (callback.parameters[key] === undefined) {
+                return;
+            }
         }
     }
     const editor = window.activeTextEditor;
@@ -108,6 +122,10 @@ async function updateFileSource(parameters: any) {
     }
 }
 
+async function fileReferences(parameters: any) {
+    //
+}
+
 export async function handleResponse(action: string, parameters: any) {
     console.log(action);
     console.log(parameters);
@@ -117,9 +135,11 @@ export async function handleResponse(action: string, parameters: any) {
         case "input_callback":
             return await inputCallback(parameters);
         case "collection":
-            for (const item of parameters.actions) {
+            console.log(parameters.actions);
+            parameters.actions.forEach(async (item: any) => {
+                console.log("x", item);
                 await handleResponse(item.name, item.parameters);
-            }
+            });
         case "close_file":
             return closeFile(parameters);
         case "replace_file_source":
@@ -130,6 +150,8 @@ export async function handleResponse(action: string, parameters: any) {
             return window.showInformationMessage(parameters.message);
         case "return":
             return parameters.value;
+        case "file_references":
+            return await fileReferences(parameters);
         default:
             console.error(`${action} handler not implemented yet`);
     }

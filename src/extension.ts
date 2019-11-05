@@ -8,10 +8,10 @@ import * as NewClass from './handlers/new-class';
 import * as ImportClass from './handlers/import-class';
 import * as Complete from './handlers/complete';
 import * as Hover from './handlers/hover';
+import * as ContextMenu from './handlers/context-menu';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
-    // TODO; Context Menu
     // TODO; Transform
     // TODO; Class Inflect
     // TODO: Find References
@@ -22,7 +22,8 @@ function createHandlers(): Array<vscode.Disposable> {
         NewClass.register(),
         ImportClass.register(),
         Complete.register(),
-        Hover.register()
+        Hover.register(),
+        ContextMenu.register()
     ];
 }
 

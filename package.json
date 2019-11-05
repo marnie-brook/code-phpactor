@@ -34,7 +34,12 @@
 				"command": "extension.phpactorImportClass",
 				"title": "PhpActor: Import Class",
 				"enablement": "editorLangId == php"
-			}
+            },
+            {
+                "command": "extension.phpactorContextMenu",
+                "title": "PhpActor: Context Menu",
+                "enablement": "editorLangId == php"
+            }
 		],
 		"configuration": {
 			"title": "phpactor",

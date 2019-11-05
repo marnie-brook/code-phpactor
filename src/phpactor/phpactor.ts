@@ -137,3 +137,15 @@ export function hover(phpactorPath: string, workingDir: string, source: string, 
     };
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
+
+export function contextMenu(phpactorPath: string, workingDir: string, source: string, offset: number, currentPath: string) {
+    const command = {
+        action: 'context_menu',
+        parameters: {
+            source,
+            offset,
+            current_path: currentPath
+        }
+    };
+    return rpcPhpActor(phpactorPath, workingDir, command);
+}
