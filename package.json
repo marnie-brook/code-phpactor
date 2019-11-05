@@ -10,16 +10,25 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+        "onLanguage:php"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
+        "configuration": {
+            "title": "phpactor",
+            "properties": {
+                "phpactor.phpactorExecutablePath": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Path to the phpactor executable on your file system"
+                }
+            }
+        },
+        "languages": [
+            {
+                "id": "php"
+            }
+        ]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
