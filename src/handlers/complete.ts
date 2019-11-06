@@ -32,7 +32,8 @@ async function provideCompletionItems(document: TextDocument, position: Position
         if (ci.kind === CompletionItemKind.Class) {
             ci.command = {
                 command: "extension.phpactorImportClass",
-                title: "PhpActor: Import Class"
+                title: "PhpActor: Import Class",
+                arguments: [suggestion.class_import]
             };
         }
         return ci;

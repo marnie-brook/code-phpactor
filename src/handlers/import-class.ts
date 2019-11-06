@@ -2,7 +2,7 @@ import { Disposable, commands, window, workspace } from "vscode";
 import { importClass } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
-async function handle() {
+async function handle(qualifiedName: string|null) {
     const editor = window.activeTextEditor;
     const workspaces = workspace.workspaceFolders;
     if (editor === undefined || workspaces === undefined) {
@@ -25,13 +25,14 @@ async function handle() {
         editor.document.getText(),
         editor.document.offsetAt(editor.selection.start),
         editor.document.getText(editor.document.getWordRangeAtPosition(editor.selection.start)),
-        editor.document.uri.fsPath
+        editor.document.uri.fsPath,
+        qualifiedName
     );
     await handleResponse(resp.action, resp.parameters);
 }
 
 export function register(): Disposable {
-    return commands.registerCommand("extension.phpactorImportClass", () => {
-        handle();
+    return commands.registerCommand("extension.phpactorImportClass", (qualifiedName: string|null) => {
+        handle(qualifiedName);
     });
 }

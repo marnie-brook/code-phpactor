@@ -101,8 +101,8 @@ export function newClass(path: string, workingDir: string, currentPath: string, 
     return rpcPhpActor(path, workingDir, command);
 }
 
-export function importClass(phpactorPath: string, workingDir: string, source: string, offset: number, name: string, path: string) {
-    const command = {
+export function importClass(phpactorPath: string, workingDir: string, source: string, offset: number, name: string, path: string, qualifiedName: string|null) {
+    const command: any = {
         action: 'import_class',
         parameters: {
             source,
@@ -111,6 +111,9 @@ export function importClass(phpactorPath: string, workingDir: string, source: st
             path
         }
     };
+    if (qualifiedName !== null) {
+        command.parameters.qualified_name = qualifiedName;
+    }
     return rpcPhpActor(phpactorPath, workingDir, command);
 }
 
