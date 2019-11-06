@@ -1,5 +1,5 @@
 import { rpcPhpActor } from "./phpactor";
-import { workspace, window, Selection, Range, Position } from "vscode";
+import { workspace, window, Selection, Range, Position, TextEditor } from "vscode";
 
 async function openFile({ path, offset }: { path: string, offset: number}) {
     await workspace.openTextDocument(path).then((td) => {
@@ -90,6 +90,7 @@ async function inputCallback(inputParams: any) {
 }
 
 async function replaceFileSource(parameters: any) {
+    const selections = (window.activeTextEditor as TextEditor).selections;
     if ("path" in parameters) {
         await openFile({ path: parameters.path, offset: 0 });
     }
@@ -103,14 +104,31 @@ async function replaceFileSource(parameters: any) {
             parameters.source
         );
     });
+    (window.activeTextEditor as TextEditor).selections = selections.map(
+        (selection) => {
+            return new Selection(
+                selection.start.with(selection.start.line + 1),
+                selection.end.with(selection.end.line + 1)
+            );
+        }
+    );
 }
 
 async function updateFileSource(parameters: any) {
+    const selections = (window.activeTextEditor as TextEditor).selections;
     if ("path" in parameters) {
         await openFile({ path: parameters.path, offset: 0 });
     }
     if (parameters.source) {
-        return await replaceFileSource(parameters);
+        await replaceFileSource(parameters);
+        (window.activeTextEditor as TextEditor).selections = selections.map(
+            (selection) => {
+                return new Selection(
+                    selection.start.with(selection.start.line + 1),
+                    selection.end.with(selection.end.line + 1)
+                );
+            }
+        );
     }
 }
 
