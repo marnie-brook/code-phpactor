@@ -25,15 +25,7 @@ async function provideCompletionItems(document: TextDocument, position: Position
     if (!handled) {
         return undefined;
     }
-    const encountered: any = {};
-    return handled.suggestions.filter((suggestion: any) => {
-        const label: string = suggestion.label;
-        if (label in encountered) {
-            return false;
-        }
-        encountered[label] = true;
-        return true;
-    }).map((suggestion: any) => {
+    return handled.suggestions.map((suggestion: any) => {
         const ci = new CompletionItem(suggestion.label);
         ci.kind = mapTypeToCompletionItemKind(suggestion.type);
         ci.detail = suggestion.short_description;
