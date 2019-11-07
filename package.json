@@ -2,7 +2,7 @@
 	"name": "phpactor",
 	"displayName": "phpactor",
 	"description": "",
-	"version": "0.2.4",
+	"version": "0.3.0",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -71,9 +71,9 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "webpack --mode production",
 		"pretest": "npm run compile",
-        "test": "node ./out/test/runTest.js",
-        "webpack": "webpack --mode development",
-        "webpack-dev": "webpack --mode development -- watch"
+		"test": "node ./out/test/runTest.js",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development -- watch"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
