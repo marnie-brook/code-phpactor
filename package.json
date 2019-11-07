@@ -69,10 +69,11 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
+		"compile": "webpack --mode production",
 		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
+        "test": "node ./out/test/runTest.js",
+        "webpack": "webpack --mode development",
+        "webpack-dev": "webpack --mode development -- watch"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
@@ -81,9 +82,12 @@
 		"@types/vscode": "^1.39.0",
 		"glob": "^7.1.5",
 		"mocha": "^6.2.2",
-		"typescript": "^3.6.4",
+		"ts-loader": "^6.2.1",
 		"tslint": "^5.20.0",
-		"vscode-test": "^1.2.2"
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10"
 	},
 	"publisher": "williambrook",
 	"dependencies": {
