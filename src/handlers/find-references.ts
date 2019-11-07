@@ -1,4 +1,4 @@
-import { Disposable, languages, TextDocument, Range, Position, workspace, Location, Uri, commands, window, TextEditor } from "vscode";
+import { Disposable, languages, TextDocument, Range, Position, workspace, Location, Uri, commands, window, TextEditor, ProgressLocation } from "vscode";
 import { findReferences } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
@@ -66,8 +66,24 @@ export function register(): Array<Disposable> {
             if (!editor) {
                 return;
             }
-            const locations = await handle(editor.document, pos);
-            commands.executeCommand("editor.action.showReferences", editor.document.uri, pos, locations);
+            window.withProgress({
+                location: ProgressLocation.Notification,
+                title: 'Finding references...',
+                cancellable: true
+            }, async (progress, token) => {
+                let locations;
+                if (!token.isCancellationRequested) {
+                    progress.report({
+                        increment: 50
+                    });
+                }
+                if (!token.isCancellationRequested) {
+                    locations = await handle(editor.document, pos);
+                }
+                if (!token.isCancellationRequested) {
+                    await commands.executeCommand("editor.action.showReferences", editor.document.uri, pos, locations);
+                }
+            });
         })
     ];
 }
