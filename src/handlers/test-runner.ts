@@ -1,6 +1,9 @@
-import { Disposable, commands, Uri, window, workspace } from "vscode";
+import { Disposable, commands, Uri, window, workspace, OutputChannel } from "vscode";
 import { execFile } from 'child_process';
 import { Readable, Writable } from "stream";
+
+
+let lastOutput: OutputChannel | null = null;
 
 function handle(path: Uri, methodName?: string) {
     const phpunitPath = workspace.getConfiguration("phpactor").get("phpunitPath");
@@ -18,6 +21,9 @@ function handle(path: Uri, methodName?: string) {
         return;
     }
     const workingDir = workingDirs[0];
+    if (lastOutput) {
+        lastOutput.dispose();
+    }
     const output = window.createOutputChannel("PHPUnit");
     let args = [path.fsPath];
     if (methodName) {
@@ -32,6 +38,7 @@ function handle(path: Uri, methodName?: string) {
     });
     (cmd.stdin as Writable).end();
     output.show();
+    lastOutput = output;
 }
 
 export function register(): Array<Disposable> {
