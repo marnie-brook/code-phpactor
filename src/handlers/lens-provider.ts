@@ -1,4 +1,4 @@
-import { Disposable, languages, TextDocument, CodeLens, workspace, Range, Position } from 'vscode';
+import { Disposable, languages, TextDocument, CodeLens, workspace, Range, Position, window, TextEditor } from 'vscode';
 import { Repository, Class } from 'php-reflection';
 
 async function provide(document: TextDocument) {
@@ -28,11 +28,14 @@ async function provide(document: TextDocument) {
 function getClassLenses(repo: Repository) {
     const lenses: Array<CodeLens> = [];
     const classes = (repo.getByType('class') as Array<Class>);
+    const phpunitPath = workspace.getConfiguration("phpactor").get("phpunitPath");
     for (const clazz of classes) {
         const range = new Range(
             new Position(clazz.position.start.line - 1, clazz.position.start.column),
             new Position(clazz.position.end.line - 1, clazz.position.end.column)
         );
+        const testable = !clazz.isAbstract && phpunitPath &&
+            (clazz.name.endsWith("Test") || clazz.name.endsWith("TestCase") || clazz.name.startsWith("Test"));
         const pos = range.start.with(
             undefined,
             range.start.character + "class ".length + 2
@@ -63,6 +66,17 @@ function getClassLenses(repo: Repository) {
                 tooltip: '[ Transform File ]'
             }
         ));
+        if (testable) {
+            lenses.push(new CodeLens(
+                range,
+                {
+                    command: 'extension.phpactorRunTest',
+                    title: 'Run Tests',
+                    tooltip: '[ Run Tests ]',
+                    arguments: [(window.activeTextEditor as TextEditor).document.uri]
+                }
+            ));
+        }
     }
     return lenses;
 }
@@ -70,8 +84,11 @@ function getClassLenses(repo: Repository) {
 function getMethodLenses(repo: Repository) {
     const lenses: Array<CodeLens> = [];
     const classes = repo.getByType('class') as Array<Class>;
+    const phpunitPath = workspace.getConfiguration("phpactor").get("phpunitPath");
     for (const clazz of classes) {
         const methods = clazz.getMethods();
+        const testable = !clazz.isAbstract && phpunitPath &&
+            (clazz.name.endsWith("Test") || clazz.name.endsWith("TestCase") || clazz.name.startsWith("Test"));
         for (const key in methods) {
             const method = methods[key];
             const range = new Range(
@@ -100,6 +117,19 @@ function getMethodLenses(repo: Repository) {
                     arguments: [pos]
                 }
             ));
+            if (testable &&
+                (method.name.endsWith("Test") || method.name.endsWith("TestCase") || method.name.startsWith("test"))
+            ) {
+                lenses.push(new CodeLens(
+                    range,
+                    {
+                        command: 'extension.phpactorRunTest',
+                        title: 'Run Test',
+                        tooltip: '[ Run Test ]',
+                        arguments: [(window.activeTextEditor as TextEditor).document.uri, method.name]
+                    }
+                ));
+            }
         }
     }
     return lenses;
@@ -152,8 +182,7 @@ export function register(): Disposable {
             return provide(document);
         },
         resolveCodeLens: (cl) => {
-            console.log('resolve', cl);
-            return undefined;
+            return cl;
         }
     });
 }

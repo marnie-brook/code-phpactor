@@ -12,6 +12,7 @@ import * as Transform from './handlers/transform';
 import * as ClassInflect from './handlers/class-inflect';
 import * as CodeLensProvider from './handlers/lens-provider';
 import * as SymbolProvider from './handlers/symbol-provider';
+import * as TestRunner from './handlers/test-runner';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -28,7 +29,8 @@ function createHandlers(): Array<vscode.Disposable> {
         Transform.register(),
         ClassInflect.register(),
         CodeLensProvider.register(),
-        SymbolProvider.register()
+        SymbolProvider.register(),
+        ...TestRunner.register()
     ];
 }
 
