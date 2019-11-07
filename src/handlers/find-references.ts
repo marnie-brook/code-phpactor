@@ -1,4 +1,4 @@
-import { Disposable, languages, TextDocument, Range, Position, workspace, Location, Uri } from "vscode";
+import { Disposable, languages, TextDocument, Range, Position, workspace, Location, Uri, commands, window, TextEditor } from "vscode";
 import { findReferences } from "../phpactor/phpactor";
 import { handleResponse } from "../phpactor/response-handler";
 
@@ -51,10 +51,23 @@ async function handle(document: TextDocument, pos: Position) {
     return undefined;
 }
 
-export function register(): Disposable {
-    return languages.registerReferenceProvider("php", {
-        provideReferences: (document, position) => {
-            return handle(document, position);
-        }
-    });
+export function register(): Array<Disposable> {
+    return [
+        languages.registerReferenceProvider("php", {
+            provideReferences: (document, position) => {
+                return handle(document, position);
+            }
+        }),
+        commands.registerCommand("extension.phpactorFindReferences", async (pos?: Position) => {
+            if (!pos) {
+                return;
+            }
+            const editor = window.activeTextEditor;
+            if (!editor) {
+                return;
+            }
+            const locations = await handle(editor.document, pos);
+            commands.executeCommand("editor.action.showReferences", editor.document.uri, pos, locations);
+        })
+    ];
 }

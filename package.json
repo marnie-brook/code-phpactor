@@ -58,7 +58,12 @@
 					"type": "string",
 					"default": null,
 					"description": "Path to the phpactor executable on your file system"
-				}
+                },
+                "phpactor.enableCodeLenses": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Control visibility of code lenses within php files"
+                }
 			}
 		}
 	},
@@ -80,5 +85,8 @@
 		"tslint": "^5.20.0",
 		"vscode-test": "^1.2.2"
 	},
-	"publisher": "williambrook"
+	"publisher": "williambrook",
+	"dependencies": {
+		"php-reflection": "^2.3.1"
+	}
 }

@@ -10,6 +10,7 @@ import * as ContextMenu from './handlers/context-menu';
 import * as FindReferences from './handlers/find-references';
 import * as Transform from './handlers/transform';
 import * as ClassInflect from './handlers/class-inflect';
+import * as CodeLensProvider from './handlers/lens-provider';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -22,9 +23,10 @@ function createHandlers(): Array<vscode.Disposable> {
         Complete.register(),
         Hover.register(),
         ContextMenu.register(),
-        FindReferences.register(),
+        ...FindReferences.register(),
         Transform.register(),
-        ClassInflect.register()
+        ClassInflect.register(),
+        CodeLensProvider.register()
     ];
 }
 
