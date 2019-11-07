@@ -1,10 +1,6 @@
-.vscode/**
-.vscode-test/**
-src/
-.gitignore
+.vscode
+node_modules
+src/**
+package-json.lock
 tsconfig.json
-tslint.json
-**/*.map
-**/*.ts
-dist/
 webpack.config.json
