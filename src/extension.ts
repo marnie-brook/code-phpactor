@@ -11,6 +11,7 @@ import * as FindReferences from './handlers/find-references';
 import * as Transform from './handlers/transform';
 import * as ClassInflect from './handlers/class-inflect';
 import * as CodeLensProvider from './handlers/lens-provider';
+import * as SymbolProvider from './handlers/symbol-provider';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -26,7 +27,8 @@ function createHandlers(): Array<vscode.Disposable> {
         ...FindReferences.register(),
         Transform.register(),
         ClassInflect.register(),
-        CodeLensProvider.register()
+        CodeLensProvider.register(),
+        SymbolProvider.register()
     ];
 }
 
