@@ -10,9 +10,9 @@ import * as ContextMenu from './handlers/context-menu';
 import * as FindReferences from './handlers/find-references';
 import * as Transform from './handlers/transform';
 import * as ClassInflect from './handlers/class-inflect';
-import * as CodeLensProvider from './handlers/lens-provider';
-import * as SymbolProvider from './handlers/symbol-provider';
-import * as TestRunner from './handlers/test-runner';
+// import * as CodeLensProvider from './handlers/lens-provider';
+// import * as SymbolProvider from './handlers/symbol-provider';
+// import * as TestRunner from './handlers/test-runner';
 import { validatePath } from './phpactor/phpactor';
 
 function createHandlers(): Array<vscode.Disposable> {
@@ -28,9 +28,9 @@ function createHandlers(): Array<vscode.Disposable> {
         ...FindReferences.register(),
         Transform.register(),
         ClassInflect.register(),
-        CodeLensProvider.register(),
-        SymbolProvider.register(),
-        ...TestRunner.register()
+        // CodeLensProvider.register(),
+        // SymbolProvider.register(),
+        // ...TestRunner.register()
     ];
 }
 
