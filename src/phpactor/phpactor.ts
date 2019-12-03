@@ -107,7 +107,6 @@ export function importClass(phpactorPath: string, workingDir: string, source: st
         parameters: {
             source,
             offset,
-            name,
             path
         }
     };
