@@ -92,7 +92,7 @@
 		"typescript": "^3.6.4",
 		"vscode-test": "^1.2.2",
 		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.10"
+		"webpack-cli": "^3.3.12"
 	},
 	"publisher": "williambrook",
 	"dependencies": {
